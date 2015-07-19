@@ -70,10 +70,10 @@ public:
 		return *p_game;
 	}
 
-	template <typename B>
-	B& addBehaviour()
+	template <typename B, class... Args>
+	B& addBehaviour(Args&& ... args)
 	{
-		B* b = new B;
+		B* b = new B(args...);
 		b->p_actor = this;
 		p_asleep_behaviours.push_back(std::unique_ptr<Behaviour>(b));
 		return *b;

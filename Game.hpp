@@ -14,7 +14,8 @@ class Game
 public:
 	Game(unsigned int fixed_tickrate = 60):
 	p_running(false),
-	c_ms_per_fixed_update(1000.0 / (double)fixed_tickrate)
+	c_ms_per_fixed_update(1000.0 / (double)fixed_tickrate),
+	p_fixed_update_lag(0.0)
 	{};
 	~Game()
 	{};
@@ -26,24 +27,24 @@ public:
 			p->gameStart();
 
 		Clock clk;
-		double fixed_update_lag = 0.0;
+		p_fixed_update_lag = 0.0;
 		while (p_running)
 		{
 			p_delta_time = clk.reset();
-			fixed_update_lag += p_delta_time.asMilliseconds();
+			p_fixed_update_lag += p_delta_time.asMilliseconds();
 
 			for (Plugin* p : p_plugins)
 				p->preUpdate();
 			for (Actor* a : p_actors)
 				a->preUpdate();
 
-			while (fixed_update_lag >= c_ms_per_fixed_update)
+			while (p_fixed_update_lag >= c_ms_per_fixed_update)
 			{
 				for (Actor* a : p_actors)
 					a->fixedUpdate();
 				for (Plugin* p : p_plugins)
 					p->fixedUpdate();
-				fixed_update_lag -= c_ms_per_fixed_update;
+				p_fixed_update_lag -= c_ms_per_fixed_update;
 			}
 
 			for (Actor* a : p_actors)
@@ -140,9 +141,15 @@ public:
 		return c_ms_per_fixed_update;
 	}
 
+	double fixedUpdateLag() const
+	{
+		return p_fixed_update_lag;
+	}
+
 private:
 	bool p_running;
 	const double c_ms_per_fixed_update;
+	double p_fixed_update_lag;
 	Time p_delta_time;
 
 	std::unordered_map<unsigned int, std::list<Actor*>::iterator> p_actor_pool;
