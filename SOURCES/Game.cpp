@@ -1,14 +1,14 @@
 #include "Game.hpp"
 #include "Actor.hpp"
 #include "Plugin.hpp"
-#include "Time.hpp"
 #include "Clock.hpp"
+#include <iostream>
 
 using namespace h2d;
 
 Game::Game(unsigned int fixed_tickrate):
 p_running(false),
-c_ms_per_fixed_update(1000.0 / (double)fixed_tickrate),
+c_nanoseconds_per_fixed_update(1e9 / (double)fixed_tickrate),
 p_fixed_update_lag(0.0)
 {};
 
@@ -26,20 +26,20 @@ void Game::run()
     while (p_running)
     {
         p_delta_time = clk.reset();
-        p_fixed_update_lag += p_delta_time.asMilliseconds();
+        p_fixed_update_lag += p_delta_time.asNanoseconds();
 
         for (Actor* a : p_actors)
             a->preUpdate();
         for (Plugin* p : p_plugins)
             p->preUpdate();
 
-        while (p_fixed_update_lag >= c_ms_per_fixed_update)
+        while (p_fixed_update_lag >= c_nanoseconds_per_fixed_update)
         {
             for (Actor* a : p_actors)
                 a->fixedUpdate();
             for (Plugin* p : p_plugins)
                 p->fixedUpdate();
-            p_fixed_update_lag -= c_ms_per_fixed_update;
+            p_fixed_update_lag -= c_nanoseconds_per_fixed_update;
         }
 
         for (Plugin* p : p_plugins)
@@ -94,14 +94,14 @@ const Time& Game::deltaTime() const
     return p_delta_time;
 }
 
-double Game::fixedUpdateMilliseconds() const
+Time Game::fixedUpdateTime() const
 {
-    return c_ms_per_fixed_update;
+    return Time::nanoseconds(c_nanoseconds_per_fixed_update);
 }
 
-double Game::fixedUpdateLag() const
+Time Game::fixedUpdateLag() const
 {
-    return p_fixed_update_lag;
+    return Time::nanoseconds(p_fixed_update_lag);
 }
 
 void Game::setRunning(bool running)
@@ -117,22 +117,4 @@ const Actor& Game::getActorById(unsigned int id) const
 Actor& Game::getActorById(unsigned int id)
 {
     return *(*(p_actor_pool.find(id)->second));
-}
-
-template <typename P>
-const P* Game::getPlugin() const
-{
-    for (Plugin* p : p_plugins)
-        if (dynamic_cast<P*>(p))
-            return dynamic_cast<P*>(p);
-    return nullptr;
-}
-
-template <typename P>
-P* Game::getPlugin()
-{
-    for (Plugin* p : p_plugins)
-        if (dynamic_cast<P*>(p))
-            return dynamic_cast<P*>(p);
-    return nullptr;
 }

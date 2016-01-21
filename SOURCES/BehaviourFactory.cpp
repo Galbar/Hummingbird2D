@@ -16,7 +16,8 @@ Behaviour* BehaviourFactory::Build(const std::string& key)
     auto it = s_map.find(key);
     if (it == s_map.end())
     {
-        throw exception::BehaviourNotRegistered(key);
+        const char* str = key.c_str();
+        throw exception::BehaviourNotRegistered(str);
     }
     return (it->second)();
 }

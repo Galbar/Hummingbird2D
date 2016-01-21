@@ -7,6 +7,7 @@
 #include "HEADERS/Actor.hpp"
 #include "HEADERS/Exceptions.hpp"
 #include "HEADERS/Game.hpp"
+#include "HEADERS/Kinematic.hpp"
 #include "HEADERS/Plugin.hpp"
 #include "HEADERS/ResourceManager.hpp"
 #include "HEADERS/Time.hpp"

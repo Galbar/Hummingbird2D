@@ -1,22 +1,22 @@
 #include "Exceptions.hpp"
 using namespace h2d::exception;
 
-BehaviourNotFound::BehaviourNotFound(const std::string& type_name)
+BehaviourNotFound::BehaviourNotFound(const char* type_name)
 {
-    p_type = type_name;
+    p_type_name = type_name;
 }
 
-const char* BehaviourNotFound::what() const throw()
+const char* BehaviourNotFound::what() const noexcept
 {
-    return ("Behaviour of type " + p_type + " not found.").c_str();
+    return p_type_name;
 }
 
-BehaviourNotRegistered::BehaviourNotRegistered(const std::string& name)
+BehaviourNotRegistered::BehaviourNotRegistered(const char* name)
 {
     p_name = name;
 }
 
-const char* BehaviourNotRegistered::what() const throw()
+const char* BehaviourNotRegistered::what() const noexcept
 {
-    return ("Behaviour of type " + p_name + " not registered in BehaviourBuilder.").c_str();
+    return p_name;
 }

@@ -1,5 +1,6 @@
 #include "Clock.hpp"
 #include "Time.hpp"
+#include <iostream>
 
 using namespace h2d;
 
@@ -14,12 +15,14 @@ Clock::~Clock()
 Time Clock::getTime() const
 {
     auto elapsed = std::chrono::high_resolution_clock::now() - m_time_point;
-    return Time::microseconds(std::chrono::duration_cast<std::chrono::microseconds>(elapsed).count());
+    return Time::nanoseconds(std::chrono::duration_cast<std::chrono::nanoseconds>(elapsed).count());
 }
 
 Time Clock::reset()
 {
-    Time t = getTime();
-    m_time_point = std::chrono::high_resolution_clock::now();
+    auto new_point = std::chrono::high_resolution_clock::now();
+    auto elapsed = new_point - m_time_point;
+    Time t = Time::nanoseconds(std::chrono::duration_cast<std::chrono::nanoseconds>(elapsed).count());
+    m_time_point = new_point;
     return t;
 }

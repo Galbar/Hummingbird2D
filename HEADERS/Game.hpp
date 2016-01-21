@@ -23,17 +23,31 @@ public:
     void setRunning(bool running);
     const Actor& getActorById(unsigned int id) const;
     Actor& getActorById(unsigned int id);
+    Time fixedUpdateTime() const;
+    Time fixedUpdateLag() const;
+
     template <typename P>
-    const P* getPlugin() const;
+    const P* getPlugin() const
+    {
+        for (Plugin* p : p_plugins)
+            if (dynamic_cast<P*>(p))
+                return dynamic_cast<P*>(p);
+        return nullptr;
+    }
+
     template <typename P>
-    P* getPlugin();
-    double fixedUpdateMilliseconds() const;
-    double fixedUpdateLag() const;
+    P* getPlugin()
+    {
+        for (Plugin* p : p_plugins)
+            if (dynamic_cast<P*>(p))
+                return dynamic_cast<P*>(p);
+        return nullptr;
+    }
 
 private:
     bool p_running;
-    const double c_ms_per_fixed_update;
-    double p_fixed_update_lag;
+    const long c_nanoseconds_per_fixed_update;
+    long p_fixed_update_lag;
     Time p_delta_time;
 
     std::unordered_map<unsigned int, std::list<Actor*>::iterator> p_actor_pool;

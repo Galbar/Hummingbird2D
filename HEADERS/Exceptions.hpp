@@ -10,21 +10,21 @@ namespace h2d
         class BehaviourNotFound : public std::exception
         {
         public:
-            BehaviourNotFound(const std::string& type_name);
-            virtual const char* what() const throw();
+            BehaviourNotFound(const char* type_name);
+            virtual const char* what() const noexcept override;
 
         private:
-            std::string p_type;
+            const char* p_type_name;
         };
 
         class BehaviourNotRegistered : public std::exception
         {
         public:
-            BehaviourNotRegistered(const std::string& name);
-            virtual const char* what() const throw();
+            BehaviourNotRegistered(const char* name);
+            virtual const char* what() const noexcept override;
 
         private:
-            std::string p_name;
+            const char* p_name;
         };
     }
 }

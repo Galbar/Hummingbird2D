@@ -1,9 +1,14 @@
 #include "Time.hpp"
+#include <iostream>
 
 using namespace h2d;
 
 Time::Time():
-m_microseconds(0)
+m_nanoseconds(0)
+{}
+
+Time::Time(const Time& other):
+m_nanoseconds(other.m_nanoseconds)
 {}
 
 Time::~Time()
@@ -11,116 +16,127 @@ Time::~Time()
 
 double Time::asSeconds() const
 {
-    return (double)m_microseconds/1e6;
+    return (double)m_nanoseconds/1e9;
 }
 
 double Time::asMilliseconds() const
 {
-    return (double)m_microseconds/1000.0;
+    return (double)m_nanoseconds/1e6;
 }
 
-long long Time::asMicroseconds() const
+double Time::asMicroseconds() const
 {
-    return m_microseconds;
+    return (double)m_nanoseconds/1e3;
+}
+
+long Time::asNanoseconds() const
+{
+    return m_nanoseconds;
 }
 
 Time Time::seconds(double seconds)
 {
     Time t;
-    t.m_microseconds = (long long)(seconds * 1e6);
+    t.m_nanoseconds = (long)(seconds * 1e9);
     return t;
 }
 
 Time Time::milliseconds(double milliseconds)
 {
     Time t;
-    t.m_microseconds = milliseconds * 1000.0;
+    t.m_nanoseconds = milliseconds * 1e6;
     return t;
 }
 
-Time Time::microseconds(long long microseconds)
+Time Time::microseconds(double microseconds)
 {
     Time t;
-    t.m_microseconds = microseconds;
+    t.m_nanoseconds = microseconds * 1e3;
     return t;
 }
 
+Time Time::nanoseconds(long nanoseconds)
+{
+    Time t;
+    t.m_nanoseconds = nanoseconds;
+    return t;
+}
 
 Time& Time::operator+=(const Time& other)
 {
-    m_microseconds += other.m_microseconds;
+    m_nanoseconds += other.m_nanoseconds;
     return *this;
 }
 
 Time& Time::operator-=(const Time& other)
 {
-    m_microseconds -= other.m_microseconds;
+    m_nanoseconds -= other.m_nanoseconds;
     return *this;
 }
 
 Time& Time::operator*=(double other)
 {
-    m_microseconds *= other;
+    m_nanoseconds *= other;
     return *this;
 }
 
-Time& Time::operator*=(long long other)
+Time& Time::operator*=(long other)
 {
-    m_microseconds *= other;
+    m_nanoseconds *= other;
     return *this;
 }
 
 Time& Time::operator/=(double other)
 {
-    m_microseconds /= other;
+    m_nanoseconds /= other;
     return *this;
 }
 
-Time& Time::operator/=(long long other)
+Time& Time::operator/=(long other)
 {
-    m_microseconds /= other;
+    m_nanoseconds /= other;
     return *this;
 }
 
 Time& Time::operator%=(const Time& other)
 {
-    m_microseconds %= other.m_microseconds;
+    m_nanoseconds %= other.m_nanoseconds;
     return *this;
 }
 
 Time operator-(Time right)
 {
-    return Time::microseconds(-right.asMicroseconds());
+    return Time::microseconds(-right.asNanoseconds());
 }
 
 bool operator==(const Time& left, const Time& right)
 {
-    return left.asMicroseconds() == right.asMicroseconds();
+    return left.asNanoseconds() == right.asNanoseconds();
 }
 
 bool operator!=(const Time& left, const Time& right)
 {
-    return left.asMicroseconds() != right.asMicroseconds();
+    return left.asNanoseconds() != right.asNanoseconds();
 }
 
 bool operator<(const Time& left, const Time& right)
 {
-    return left.asMicroseconds() < right.asMicroseconds();
+    return left.asNanoseconds() < right.asNanoseconds();
 }
 
 bool operator>(const Time& left, const Time& right)
 {
-    return left.asMicroseconds() > right.asMicroseconds();
+    return left.asNanoseconds() > right.asNanoseconds();
 }
 
 bool operator<=(const Time& left, const Time& right)
 {
-    return left.asMicroseconds() <= right.asMicroseconds();
+    return left.asNanoseconds() <= right.asNanoseconds();
 }
 
 bool operator>=(const Time& left, const Time& right)
 {
-    return left.asMicroseconds() >= right.asMicroseconds();
+    return left.asNanoseconds() >= right.asNanoseconds();
 }
 
 Time operator+(Time left, const Time& right)
@@ -138,7 +154,7 @@ Time operator*(Time left, double right)
     return left *= right;
 }
 
-Time operator*(Time left, long long right)
+Time operator*(Time left, long right)
 {
     return left *= right;
 }
@@ -148,7 +164,7 @@ Time operator*(double left, Time right)
     return right *= left;
 }
 
-Time operator*(long long left, Time right)
+Time operator*(long left, Time right)
 {
     return right *= left;
 }
@@ -158,14 +174,14 @@ Time operator/(Time left, double right)
     return left /= right;
 }
 
-Time operator/(Time left, long long right)
+Time operator/(Time left, long right)
 {
     return left /= right;
 }
 
 double operator/(const Time& left, const Time& right)
 {
-    return (double)left.asMicroseconds() / (double)right.asMicroseconds();
+    return (double)left.asNanoseconds() / (double)right.asNanoseconds();
 }
 
 Time operator%(Time left, const Time& right)
