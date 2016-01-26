@@ -3,10 +3,10 @@ CC     := g++
 CFLAGS := -std=c++11 -Wall -fpic -O3
 ODIR   := obj
 LDIR   := lib
-SDIR   := SOURCES
-INC    := -IHEADERS
+SDIR   := src/Hum2D
+INC    := -Iinclude/Hum2D
 
-SOURCES = $(shell find ./SOURCES -name '*.cpp')
+SOURCES = $(shell find ./$(SDIR) -name '*.cpp')
 OBJS = $(patsubst $(SDIR)/%,$(ODIR)/%,$(SOURCES:./%.cpp=%.o))
 
 all: static shared

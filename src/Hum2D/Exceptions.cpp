@@ -11,6 +11,11 @@ const char* BehaviourNotFound::what() const noexcept
     return p_type_name;
 }
 
+const char* PluginNotFound::what() const noexcept
+{
+    return "Plugin not found in game.";
+}
+
 BehaviourNotRegistered::BehaviourNotRegistered(const char* name)
 {
     p_name = name;

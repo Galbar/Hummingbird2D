@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include <list>
 #include <set>
+#include "Exceptions.hpp"
 #include "Time.hpp"
 
 namespace h2d
@@ -27,21 +28,21 @@ public:
     Time fixedUpdateLag() const;
 
     template <typename P>
-    const P* getPlugin() const
+    const P& getPlugin() const throw(exception::PluginNotFound)
     {
         for (Plugin* p : p_plugins)
             if (dynamic_cast<P*>(p))
-                return dynamic_cast<P*>(p);
-        return nullptr;
+                return *dynamic_cast<P*>(p);
+        throw exception::PluginNotFound();
     }
 
     template <typename P>
-    P* getPlugin()
+    P& getPlugin() throw(exception::PluginNotFound)
     {
         for (Plugin* p : p_plugins)
             if (dynamic_cast<P*>(p))
-                return dynamic_cast<P*>(p);
-        return nullptr;
+                return *dynamic_cast<P*>(p);
+        throw exception::PluginNotFound();
     }
 
 private:

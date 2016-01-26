@@ -17,6 +17,12 @@ namespace h2d
             const char* p_type_name;
         };
 
+        class PluginNotFound : public std::exception
+        {
+        public:
+            virtual const char* what() const noexcept override;
+        };
+
         class BehaviourNotRegistered : public std::exception
         {
         public:

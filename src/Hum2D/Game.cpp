@@ -35,10 +35,12 @@ void Game::run()
 
         while (p_fixed_update_lag >= c_nanoseconds_per_fixed_update)
         {
+            for (Plugin* p : p_plugins)
+                p->preFixedUpdate();
             for (Actor* a : p_actors)
                 a->fixedUpdate();
             for (Plugin* p : p_plugins)
-                p->fixedUpdate();
+                p->postFixedUpdate();
             p_fixed_update_lag -= c_nanoseconds_per_fixed_update;
         }
 
@@ -48,9 +50,13 @@ void Game::run()
         while (not p_actors_to_destroy.empty())
         {
             unsigned int id = *p_actors_to_destroy.begin();
-            const std::list<Actor*>::iterator it = p_actor_pool[id];
+            auto pool_it = p_actor_pool.find(id);
+            const std::list<Actor*>::iterator it = pool_it->second;
             p_actors_to_destroy.erase(p_actors_to_destroy.begin());
+            (*it)->onDestroy();
+            delete *it;
             p_actors.erase(it);
+            p_actor_pool.erase(pool_it);
         }
     }
 
@@ -60,6 +66,10 @@ void Game::run()
     while (not p_actors.empty())
     {
         Actor* a = p_actors.front();
+        int id = a->id();
+        auto pool_it = p_actor_pool.find(id);
+        a->onDestroy();
+        p_actor_pool.erase(pool_it);
         p_actors.pop_front();
         delete a;
     }

@@ -14,7 +14,10 @@ void Plugin::gameStart()
 void Plugin::preUpdate()
 {}
 
-void Plugin::fixedUpdate()
+void Plugin::preFixedUpdate()
+{}
+
+void Plugin::postFixedUpdate()
 {}
 
 void Plugin::postUpdate()

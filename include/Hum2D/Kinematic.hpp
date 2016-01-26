@@ -4,13 +4,17 @@
 
 namespace h2d
 {
+class Time;
+class Transformation;
 class Kinematic : public Behaviour
 {
 public:
     Kinematic();
     virtual ~Kinematic();
 
-    virtual void fixedUpdate() override;
+    virtual void init() override;
+    virtual void onDestroy() override;
+    virtual Transformation simulate(const Time& delta_time) const;
 
     static const char* behaviourName();
 

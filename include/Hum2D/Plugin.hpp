@@ -12,7 +12,8 @@ public:
     virtual ~Plugin();
     virtual void gameStart();
     virtual void preUpdate();
-    virtual void fixedUpdate();
+    virtual void preFixedUpdate();
+    virtual void postFixedUpdate();
     virtual void postUpdate();
     virtual void gameEnd();
 

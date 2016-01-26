@@ -34,7 +34,7 @@ public:
         return *b;
     }
     template <typename T>
-    T& getBehaviour()
+    T& getBehaviour() throw(exception::BehaviourNotFound)
     {
         for (std::unique_ptr<Behaviour>& b : p_behaviours)
             if (dynamic_cast<T*>(b.get()))
@@ -42,7 +42,7 @@ public:
         throw exception::BehaviourNotFound(T::behaviourName());
     }
     template <typename T>
-    const T& getBehaviour() const
+    const T& getBehaviour() const throw(exception::BehaviourNotFound)
     {
         for (const std::unique_ptr<Behaviour>& b : p_behaviours)
             if (dynamic_cast<T*>(b.get()))
