@@ -28,20 +28,20 @@ public:
     Time fixedUpdateLag() const;
 
     template <typename P>
-    const P& getPlugin() const throw(exception::PluginNotFound)
+    const P* getPlugin() const throw(exception::PluginNotFound)
     {
         for (Plugin* p : p_plugins)
             if (dynamic_cast<P*>(p))
-                return *dynamic_cast<P*>(p);
+                return dynamic_cast<P*>(p);
         throw exception::PluginNotFound();
     }
 
     template <typename P>
-    P& getPlugin() throw(exception::PluginNotFound)
+    P* getPlugin() throw(exception::PluginNotFound)
     {
         for (Plugin* p : p_plugins)
             if (dynamic_cast<P*>(p))
-                return *dynamic_cast<P*>(p);
+                return dynamic_cast<P*>(p);
         throw exception::PluginNotFound();
     }
 
