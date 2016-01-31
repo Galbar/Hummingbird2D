@@ -26,12 +26,12 @@ Kinematic::~Kinematic()
 
 void Kinematic::init()
 {
-    actor().game().getPlugin<KinematicWorld>().add(this);
+    actor().game().getPlugin<KinematicWorld>()->add(this);
 }
 
 void Kinematic::onDestroy()
 {
-    actor().game().getPlugin<KinematicWorld>().remove(this);
+    actor().game().getPlugin<KinematicWorld>()->remove(this);
 }
 
 const char* Kinematic::behaviourName()

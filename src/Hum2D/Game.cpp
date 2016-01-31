@@ -2,7 +2,6 @@
 #include "Actor.hpp"
 #include "Plugin.hpp"
 #include "Clock.hpp"
-#include <iostream>
 
 using namespace h2d;
 
@@ -49,14 +48,14 @@ void Game::run()
 
         while (not p_actors_to_destroy.empty())
         {
-            unsigned int id = *p_actors_to_destroy.begin();
-            auto pool_it = p_actor_pool.find(id);
+            Actor* actor = *p_actors_to_destroy.begin();
+            auto pool_it = p_actor_pool.find(actor);
             const std::list<Actor*>::iterator it = pool_it->second;
-            p_actors_to_destroy.erase(p_actors_to_destroy.begin());
-            (*it)->onDestroy();
-            delete *it;
+            actor->onDestroy();
+            delete actor;
             p_actors.erase(it);
             p_actor_pool.erase(pool_it);
+            p_actors_to_destroy.erase(p_actors_to_destroy.begin());
         }
     }
 
@@ -66,8 +65,7 @@ void Game::run()
     while (not p_actors.empty())
     {
         Actor* a = p_actors.front();
-        int id = a->id();
-        auto pool_it = p_actor_pool.find(id);
+        auto pool_it = p_actor_pool.find(a);
         a->onDestroy();
         p_actor_pool.erase(pool_it);
         p_actors.pop_front();
@@ -75,16 +73,16 @@ void Game::run()
     }
 }
 
-void Game::destroy(const Actor& actor)
+void Game::destroy(Actor& actor)
 {
-    p_actors_to_destroy.insert(actor.id());
+    p_actors_to_destroy.insert(&actor);
 }
 
 Actor& Game::makeActor()
 {
-    Actor* a = new Actor(*this, p_actor_pool.size());
+    Actor* a = new Actor(*this);
     p_actors.push_back(a);
-    p_actor_pool[a->p_id] = --p_actors.end();
+    p_actor_pool[a] = --p_actors.end();
     return *a;
 }
 
@@ -117,14 +115,4 @@ Time Game::fixedUpdateLag() const
 void Game::setRunning(bool running)
 {
     p_running = running;
-}
-
-const Actor& Game::getActorById(unsigned int id) const
-{
-    return *(*(p_actor_pool.find(id)->second));
-}
-
-Actor& Game::getActorById(unsigned int id)
-{
-    return *(*(p_actor_pool.find(id)->second));
 }

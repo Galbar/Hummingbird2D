@@ -16,14 +16,12 @@ public:
     Game(unsigned int fixed_tickrate = 60);
     ~Game();
     void run();
-    void destroy(const Actor& actor);
+    void destroy(Actor& actor);
     Actor& makeActor();
     void addPlugin(Plugin& plugin);
     const std::list<Actor*>& actors() const;
     const Time& deltaTime() const;
     void setRunning(bool running);
-    const Actor& getActorById(unsigned int id) const;
-    Actor& getActorById(unsigned int id);
     Time fixedUpdateTime() const;
     Time fixedUpdateLag() const;
 
@@ -51,11 +49,11 @@ private:
     long p_fixed_update_lag;
     Time p_delta_time;
 
-    std::unordered_map<unsigned int, std::list<Actor*>::iterator> p_actor_pool;
+    std::unordered_map<Actor*, std::list<Actor*>::iterator> p_actor_pool;
     std::list<Actor*> p_actors;
     std::list<Plugin*> p_plugins;
 
-    std::set<unsigned int> p_actors_to_destroy;
+    std::set<Actor*> p_actors_to_destroy;
 };
 }
 #endif

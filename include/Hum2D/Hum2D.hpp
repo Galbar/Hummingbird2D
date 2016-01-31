@@ -4,7 +4,6 @@
 #include "Behaviour.hpp"
 #include "BehaviourFactory.hpp"
 #include "Clock.hpp"
-#include "Actor.hpp"
 #include "Exceptions.hpp"
 #include "Game.hpp"
 #include "Kinematic.hpp"

@@ -4,9 +4,8 @@
 
 using namespace h2d;
 
-Actor::Actor(Game& game, unsigned int id):
-p_game(&game),
-p_id(id)
+Actor::Actor(Game& game):
+p_game(&game)
 {
     p_transform = new Transformation();
 }
@@ -53,11 +52,6 @@ Game& Actor::game()
 const Game& Actor::game() const
 {
     return *p_game;
-}
-
-unsigned int Actor::id() const
-{
-    return p_id;
 }
 
 Transformation& Actor::transform()

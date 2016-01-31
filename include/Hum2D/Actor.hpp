@@ -17,12 +17,8 @@ public:
     void preUpdate();
     void fixedUpdate();
     void onDestroy();
-    void disable();
-    void enable();
-    void isDisabled() const;
     Game& game();
     const Game& game() const;
-    unsigned int id() const;
     Transformation& transform();
     const Transformation& transform() const;
     template <typename B, class... Args>
@@ -69,12 +65,10 @@ public:
     }
 
 private:
-    Actor(Game& game, unsigned int id);
+    Actor(Game& game);
 
-    bool p_is_disabled;
     Game* p_game;
     Transformation* p_transform;
-    const unsigned int p_id;
     std::list<std::unique_ptr<Behaviour>> p_behaviours;
     std::list<std::unique_ptr<Behaviour>> p_asleep_behaviours;
 };
