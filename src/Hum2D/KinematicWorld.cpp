@@ -28,17 +28,23 @@ void KinematicWorld::preFixedUpdate()
     {
         double ms = game().fixedUpdateTime().asMilliseconds() / 1000.0;
         Actor& actor = kinematic->actor();
-        actor.transform().x += kinematic->velocity_x * ms + kinematic->acceleration_x * ms * ms / 2;
-        kinematic->velocity_x += kinematic->acceleration_x * ms;
-        actor.transform().y += kinematic->velocity_y * ms + kinematic->acceleration_y * ms * ms / 2;
-        kinematic->velocity_y += kinematic->acceleration_y * ms;
-        actor.transform().z += kinematic->velocity_z * ms + kinematic->acceleration_z * ms * ms / 2;
-        kinematic->velocity_z += kinematic->acceleration_z * ms;
-        actor.transform().rotation += kinematic->rotation_velocity * ms + kinematic->rotation_acceleration * ms * ms / 2;
-        kinematic->rotation_velocity += kinematic->rotation_acceleration * ms;
-        actor.transform().scale_x += kinematic->scale_velocity_x * ms + kinematic->scale_acceleration_x * ms * ms / 2;
-        kinematic->scale_velocity_x += kinematic->scale_acceleration_x * ms;
-        actor.transform().scale_y += kinematic->scale_velocity_y * ms + kinematic->scale_acceleration_y * ms * ms / 2;
-        kinematic->scale_velocity_y += kinematic->scale_acceleration_y * ms;
+
+        actor.transform().x += kinematic->velocity().x * ms + kinematic->acceleration().x * ms * ms / 2;
+        kinematic->velocity().x += kinematic->acceleration().x * ms;
+
+        actor.transform().y += kinematic->velocity().y * ms + kinematic->acceleration().y * ms * ms / 2;
+        kinematic->velocity().y += kinematic->acceleration().y * ms;
+
+        actor.transform().z += kinematic->velocity().z * ms + kinematic->acceleration().z * ms * ms / 2;
+        kinematic->velocity().z += kinematic->acceleration().z * ms;
+
+        actor.transform().rotation += kinematic->velocity().rotation * ms + kinematic->acceleration().rotation * ms * ms / 2;
+        kinematic->velocity().rotation += kinematic->acceleration().rotation * ms;
+
+        actor.transform().scale_x += kinematic->velocity().scale_x * ms + kinematic->acceleration().scale_x * ms * ms / 2;
+        kinematic->velocity().scale_x += kinematic->acceleration().scale_x * ms;
+
+        actor.transform().scale_y += kinematic->velocity().scale_y * ms + kinematic->acceleration().scale_y * ms * ms / 2;
+        kinematic->velocity().scale_y += kinematic->acceleration().scale_y * ms;
     }
 }

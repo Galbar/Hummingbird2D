@@ -17,7 +17,7 @@ public:
     ~Game();
     void run();
     void destroy(Actor& actor);
-    Actor& makeActor();
+    Actor* makeActor();
     void addPlugin(Plugin& plugin);
     const std::list<Actor*>& actors() const;
     const Time& deltaTime() const;

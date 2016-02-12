@@ -1,6 +1,5 @@
 #include "Clock.hpp"
 #include "Time.hpp"
-#include <iostream>
 
 using namespace h2d;
 

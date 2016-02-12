@@ -12,6 +12,10 @@ p_game(&game)
 
 Actor::~Actor()
 {
+    for (Behaviour* b : p_asleep_behaviours)
+        delete b;
+    for (Behaviour* b : p_behaviours)
+        delete b;
     delete p_transform;
 }
 
@@ -22,9 +26,9 @@ void Actor::preUpdate()
         std::list<Behaviour*> to_init;
         while (not p_asleep_behaviours.empty())
         {
-            std::list<std::unique_ptr<Behaviour>>::iterator b = p_asleep_behaviours.begin();
-            to_init.push_back((*b).get());
-            p_behaviours.emplace_back(std::move(*b));
+            std::list<Behaviour*>::iterator b = p_asleep_behaviours.begin();
+            to_init.push_back(*b);
+            p_behaviours.push_back(*b);
             p_asleep_behaviours.pop_front();
         }
         for (Behaviour* b : to_init)
@@ -34,13 +38,13 @@ void Actor::preUpdate()
 
 void Actor::fixedUpdate()
 {
-    for (std::unique_ptr<Behaviour>& b : p_behaviours)
+    for (Behaviour* b : p_behaviours)
         b->fixedUpdate();
 }
 
 void Actor::onDestroy()
 {
-    for (std::unique_ptr<Behaviour>& b : p_behaviours)
+    for (Behaviour* b : p_behaviours)
         b->onDestroy();
 }
 

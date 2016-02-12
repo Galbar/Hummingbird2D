@@ -1,5 +1,4 @@
 #include "Time.hpp"
-#include <iostream>
 
 using namespace h2d;
 

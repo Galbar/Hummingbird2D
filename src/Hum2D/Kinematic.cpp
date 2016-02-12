@@ -7,22 +7,20 @@
 using namespace h2d;
 
 Kinematic::Kinematic():
-velocity_x(0),
-velocity_y(0),
-velocity_z(0),
-acceleration_x(0),
-acceleration_y(0),
-acceleration_z(0),
-rotation_velocity(0),
-rotation_acceleration(0),
-scale_velocity_x(0),
-scale_velocity_y(0),
-scale_acceleration_x(0),
-scale_acceleration_y(0)
-{}
+p_velocity(new Transformation),
+p_acceleration(new Transformation)
+{
+    p_velocity->scale_x = 0;
+    p_velocity->scale_y = 0;
+    p_acceleration->scale_x = 0;
+    p_acceleration->scale_y = 0;
+}
 
 Kinematic::~Kinematic()
-{}
+{
+    delete p_velocity;
+    delete p_acceleration;
+}
 
 void Kinematic::init()
 {
@@ -43,11 +41,31 @@ Transformation Kinematic::simulate(const Time& delta_time) const
 {
     Transformation transform = actor().transform();
     double ms = delta_time.asMilliseconds() / 1000.0;
-    transform.x += this->velocity_x * ms + this->acceleration_x * ms * ms / 2;
-    transform.y += this->velocity_y * ms + this->acceleration_y * ms * ms / 2;
-    transform.z += this->velocity_z * ms + this->acceleration_z * ms * ms / 2;
-    transform.rotation += this->rotation_velocity * ms + this->rotation_acceleration * ms * ms / 2;
-    transform.scale_x += this->scale_velocity_x * ms + this->scale_acceleration_x * ms * ms / 2;
-    transform.scale_y += this->scale_velocity_y * ms + this->scale_acceleration_y * ms * ms / 2;
+    transform.x += p_velocity->x * ms + p_acceleration->x * ms * ms / 2;
+    transform.y += p_velocity->y * ms + p_acceleration->y * ms * ms / 2;
+    transform.z += p_velocity->z * ms + p_acceleration->z * ms * ms / 2;
+    transform.rotation += p_velocity->rotation * ms + p_acceleration->rotation * ms * ms / 2;
+    transform.scale_x += p_velocity->scale_x * ms + p_velocity->scale_x * ms * ms / 2;
+    transform.scale_y += p_velocity->scale_y * ms + p_velocity->scale_y * ms * ms / 2;
     return transform;
+}
+
+Transformation& Kinematic::velocity()
+{
+    return *p_velocity;
+}
+
+const Transformation& Kinematic::velocity() const
+{
+    return *p_velocity;
+}
+
+Transformation& Kinematic::acceleration()
+{
+    return *p_acceleration;
+}
+
+const Transformation& Kinematic::acceleration() const
+{
+    return *p_acceleration;
 }

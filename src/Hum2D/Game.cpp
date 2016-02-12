@@ -78,12 +78,12 @@ void Game::destroy(Actor& actor)
     p_actors_to_destroy.insert(&actor);
 }
 
-Actor& Game::makeActor()
+Actor* Game::makeActor()
 {
     Actor* a = new Actor(*this);
     p_actors.push_back(a);
     p_actor_pool[a] = --p_actors.end();
-    return *a;
+    return a;
 }
 
 void Game::addPlugin(Plugin& plugin)

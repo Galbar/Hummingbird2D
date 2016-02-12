@@ -2,7 +2,6 @@
 #define H2D_HUMMINGBIRD2D_HPP
 #include "Actor.hpp"
 #include "Behaviour.hpp"
-#include "BehaviourFactory.hpp"
 #include "Clock.hpp"
 #include "Exceptions.hpp"
 #include "Game.hpp"

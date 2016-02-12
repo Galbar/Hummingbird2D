@@ -16,24 +16,16 @@ public:
     virtual void onDestroy() override;
     virtual Transformation simulate(const Time& delta_time) const;
 
+    Transformation& velocity();
+    const Transformation& velocity() const;
+    Transformation& acceleration();
+    const Transformation& acceleration() const;
+
     static const char* behaviourName();
 
-    double velocity_x;
-    double velocity_y;
-    double velocity_z;
-
-    double acceleration_x;
-    double acceleration_y;
-    double acceleration_z;
-
-    double rotation_velocity;
-    double rotation_acceleration;
-
-    double scale_velocity_x;
-    double scale_velocity_y;
-
-    double scale_acceleration_x;
-    double scale_acceleration_y;
+private:
+    Transformation* p_velocity;
+    Transformation* p_acceleration;
 };
 }
 #endif
