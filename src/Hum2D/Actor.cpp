@@ -1,14 +1,11 @@
 #include "Actor.hpp"
 #include "Behaviour.hpp"
-#include "Transformation.hpp"
 
 using namespace h2d;
 
 Actor::Actor(Game& game):
 p_game(&game)
-{
-    p_transform = new Transformation();
-}
+{}
 
 Actor::~Actor()
 {
@@ -16,7 +13,6 @@ Actor::~Actor()
         delete b;
     for (Behaviour* b : p_behaviours)
         delete b;
-    delete p_transform;
 }
 
 void Actor::preUpdate()
@@ -60,10 +56,10 @@ const Game& Actor::game() const
 
 Transformation& Actor::transform()
 {
-    return *p_transform;
+    return p_transform;
 }
 
 const Transformation& Actor::transform() const
 {
-    return *p_transform;
+    return p_transform;
 }

@@ -1,6 +1,6 @@
 #include "Game.hpp"
-#include "Actor.hpp"
 #include "Plugin.hpp"
+#include "Actor.hpp"
 #include "Clock.hpp"
 
 using namespace h2d;
@@ -12,7 +12,13 @@ p_fixed_update_lag(0.0)
 {};
 
 Game::~Game()
-{};
+{
+    for (Actor* a : p_actor_pool)
+        delete a;
+
+    for (Plugin* p : p_plugins)
+        delete p;
+};
 
 void Game::run()
 {
@@ -27,7 +33,7 @@ void Game::run()
         p_delta_time = clk.reset();
         p_fixed_update_lag += p_delta_time.asNanoseconds();
 
-        for (Actor* a : p_actors)
+        for (Actor* a : p_actor_pool)
             a->preUpdate();
         for (Plugin* p : p_plugins)
             p->preUpdate();
@@ -36,7 +42,7 @@ void Game::run()
         {
             for (Plugin* p : p_plugins)
                 p->preFixedUpdate();
-            for (Actor* a : p_actors)
+            for (Actor* a : p_actor_pool)
                 a->fixedUpdate();
             for (Plugin* p : p_plugins)
                 p->postFixedUpdate();
@@ -46,55 +52,46 @@ void Game::run()
         for (Plugin* p : p_plugins)
             p->postUpdate();
 
-        while (not p_actors_to_destroy.empty())
+        for (Actor* a : p_actors_to_destroy)
         {
-            Actor* actor = *p_actors_to_destroy.begin();
-            auto pool_it = p_actor_pool.find(actor);
-            const std::list<Actor*>::iterator it = pool_it->second;
-            actor->onDestroy();
-            delete actor;
-            p_actors.erase(it);
-            p_actor_pool.erase(pool_it);
-            p_actors_to_destroy.erase(p_actors_to_destroy.begin());
+            a->onDestroy();
+            p_actor_pool.erase(a);
+            delete a;
         }
+        p_actors_to_destroy.clear();
     }
 
     for (Plugin* p : p_plugins)
         p->gameEnd();
 
-    while (not p_actors.empty())
+    for (Actor* a : p_actor_pool)
     {
-        Actor* a = p_actors.front();
-        auto pool_it = p_actor_pool.find(a);
         a->onDestroy();
-        p_actor_pool.erase(pool_it);
-        p_actors.pop_front();
         delete a;
     }
+    p_actor_pool.clear();
+}
+
+void Game::destroy(Actor* actor)
+{
+    p_actors_to_destroy.insert(actor);
 }
 
 void Game::destroy(Actor& actor)
 {
-    p_actors_to_destroy.insert(&actor);
+    destroy(&actor);
 }
 
 Actor* Game::makeActor()
 {
     Actor* a = new Actor(*this);
-    p_actors.push_back(a);
-    p_actor_pool[a] = --p_actors.end();
+    p_actor_pool.insert(a);
     return a;
 }
 
-void Game::addPlugin(Plugin& plugin)
+const std::unordered_set<Actor*>& Game::actors() const
 {
-    plugin.setGame(*this);
-    p_plugins.push_back(&plugin);
-}
-
-const std::list<Actor*>& Game::actors() const
-{
-    return p_actors;
+    return p_actor_pool;
 }
 
 const Time& Game::deltaTime() const

@@ -35,8 +35,3 @@ const Game& Plugin::game() const
 {
     return *p_game;
 }
-
-void Plugin::setGame(Game& game)
-{
-    p_game = &game;
-}

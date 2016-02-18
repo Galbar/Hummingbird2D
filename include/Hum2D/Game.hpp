@@ -1,45 +1,55 @@
 #ifndef H2D_GAME_HPP
 #define H2D_GAME_HPP
-#include <unordered_map>
-#include <list>
-#include <set>
+#include <vector>
+#include <unordered_set>
 #include "Exceptions.hpp"
 #include "Time.hpp"
 
 namespace h2d
 {
-class Actor;
 class Plugin;
+class Actor;
 class Game
 {
 public:
     Game(unsigned int fixed_tickrate = 60);
     ~Game();
     void run();
+    void destroy(Actor* actor);
     void destroy(Actor& actor);
     Actor* makeActor();
-    void addPlugin(Plugin& plugin);
-    const std::list<Actor*>& actors() const;
+    const std::unordered_set<Actor*>& actors() const;
     const Time& deltaTime() const;
     void setRunning(bool running);
     Time fixedUpdateTime() const;
     Time fixedUpdateLag() const;
 
+    template <typename P, class... Args>
+    P* addPlugin(Args&&... args)
+    {
+        P* p = new P(args...);
+        p->p_game = this;
+        p_plugins.push_back(p);
+        return p;
+    }
+
     template <typename P>
     const P* getPlugin() const throw(exception::PluginNotFound)
     {
+        P* plugin;
         for (Plugin* p : p_plugins)
-            if (dynamic_cast<P*>(p))
-                return dynamic_cast<P*>(p);
+            if ((plugin = dynamic_cast<P*>(p)) != nullptr)
+                return plugin;
         throw exception::PluginNotFound();
     }
 
     template <typename P>
     P* getPlugin() throw(exception::PluginNotFound)
     {
+        P* plugin;
         for (Plugin* p : p_plugins)
-            if (dynamic_cast<P*>(p))
-                return dynamic_cast<P*>(p);
+            if ((plugin = dynamic_cast<P*>(p)) != nullptr)
+                return plugin;
         throw exception::PluginNotFound();
     }
 
@@ -49,11 +59,9 @@ private:
     long p_fixed_update_lag;
     Time p_delta_time;
 
-    std::unordered_map<Actor*, std::list<Actor*>::iterator> p_actor_pool;
-    std::list<Actor*> p_actors;
-    std::list<Plugin*> p_plugins;
-
-    std::set<Actor*> p_actors_to_destroy;
+    std::unordered_set<Actor*> p_actor_pool;
+    std::unordered_set<Actor*> p_actors_to_destroy;
+    std::vector<Plugin*> p_plugins;
 };
 }
 #endif

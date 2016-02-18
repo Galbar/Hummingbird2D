@@ -22,7 +22,6 @@ protected:
     const Game& game() const;
 
 private:
-    void setGame(Game& game);
     Game* p_game;
 };
 }
