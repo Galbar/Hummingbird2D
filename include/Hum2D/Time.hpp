@@ -37,14 +37,14 @@ bool operator<(const h2d::Time& left, const h2d::Time& right);
 bool operator>(const h2d::Time& left, const h2d::Time& right);
 bool operator<=(const h2d::Time& left, const h2d::Time& right);
 bool operator>=(const h2d::Time& left, const h2d::Time& right);
-h2d::Time operator+(h2d::Time left, h2d::Time right);
-h2d::Time operator-(h2d::Time left, h2d::Time right);
+h2d::Time operator+(h2d::Time left, h2d::Time& right);
+h2d::Time operator-(h2d::Time left, h2d::Time& right);
 h2d::Time operator*(h2d::Time left, double right);
 h2d::Time operator*(h2d::Time left, long right);
 h2d::Time operator*(double left, h2d::Time right);
 h2d::Time operator*(long left, h2d::Time right);
 h2d::Time operator/(h2d::Time left, double right);
 h2d::Time operator/(h2d::Time left, long right);
-double operator/(h2d::Time left, h2d::Time right);
-h2d::Time operator%(h2d::Time left, h2d::Time right);
+double operator/(h2d::Time& left, h2d::Time& right);
+h2d::Time operator%(h2d::Time left, h2d::Time& right);
 #endif

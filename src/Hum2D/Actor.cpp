@@ -17,10 +17,10 @@ Actor::~Actor()
 
 void Actor::preUpdate()
 {
-    if (not p_asleep_behaviours.empty())
+    if (!p_asleep_behaviours.empty())
     {
         std::list<Behaviour*> to_init;
-        while (not p_asleep_behaviours.empty())
+        while (!p_asleep_behaviours.empty())
         {
             std::list<Behaviour*>::iterator b = p_asleep_behaviours.begin();
             to_init.push_back(*b);
