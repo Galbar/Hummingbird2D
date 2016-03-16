@@ -8,7 +8,7 @@
 namespace h2d
 {
 class Game;
-class Behaviour;
+class Behavior;
 class Actor
 {
     friend Game;
@@ -24,49 +24,49 @@ public:
     const Transformation& transform() const;
 
     template <typename B, class... Args>
-    B* addBehaviour(Args&& ... args)
+    B* addBehavior(Args&& ... args)
     {
         B* b = new B(args...);
         b->p_actor = this;
-        p_asleep_behaviours.push_back(b);
+        p_asleep_behaviors.push_back(b);
         return b;
     }
     template <typename T>
-    T* getBehaviour() throw(exception::BehaviourNotFound)
+    T* getBehavior() throw(exception::BehaviorNotFound)
     {
-        T* behaviour;
-        for (Behaviour* b : p_behaviours)
-            if ((behaviour = dynamic_cast<T*>(b)) != nullptr)
-                return behaviour;
-        throw exception::BehaviourNotFound(T::behaviourName());
+        T* behavior;
+        for (Behavior* b : p_behaviors)
+            if ((behavior = dynamic_cast<T*>(b)) != nullptr)
+                return behavior;
+        throw exception::BehaviorNotFound(T::behaviorName());
     }
     template <typename T>
-    const T* getBehaviour() const throw(exception::BehaviourNotFound)
+    const T* getBehavior() const throw(exception::BehaviorNotFound)
     {
-        T* behaviour;
-        for (const Behaviour* b : p_behaviours)
-            if ((behaviour = dynamic_cast<T*>(b)) != nullptr)
-                return behaviour;
-        throw exception::BehaviourNotFound(T::behaviourName());
+        T* behavior;
+        for (const Behavior* b : p_behaviors)
+            if ((behavior = dynamic_cast<T*>(b)) != nullptr)
+                return behavior;
+        throw exception::BehaviorNotFound(T::behaviorName());
     }
     template <typename T>
-    std::list<T*> getBehaviours()
+    std::list<T*> getBehaviors()
     {
         std::list<T*> v;
-        T* behaviour;
-        for (Behaviour* b : p_behaviours)
-            if ((behaviour = dynamic_cast<T*>(b)) != nullptr)
-                v.push_back(behaviour);
+        T* behavior;
+        for (Behavior* b : p_behaviors)
+            if ((behavior = dynamic_cast<T*>(b)) != nullptr)
+                v.push_back(behavior);
         return v;
     }
     template <typename T>
-    std::list<const T*> getBehaviours() const
+    std::list<const T*> getBehaviors() const
     {
         std::list<const T*> v;
-        T* behaviour;
-        for (const Behaviour* b : p_behaviours)
-            if ((behaviour = dynamic_cast<T*>(b)) != nullptr)
-                v.push_back(behaviour);
+        T* behavior;
+        for (const Behavior* b : p_behaviors)
+            if ((behavior = dynamic_cast<T*>(b)) != nullptr)
+                v.push_back(behavior);
         return v;
     }
 
@@ -75,8 +75,8 @@ private:
 
     Game* p_game;
     Transformation p_transform;
-    std::list<Behaviour*> p_behaviours;
-    std::list<Behaviour*> p_asleep_behaviours;
+    std::list<Behavior*> p_behaviors;
+    std::list<Behavior*> p_asleep_behaviors;
 };
 }
 #endif

@@ -1,5 +1,5 @@
 #include "Actor.hpp"
-#include "Behaviour.hpp"
+#include "Behavior.hpp"
 
 using namespace h2d;
 
@@ -9,38 +9,38 @@ p_game(&game)
 
 Actor::~Actor()
 {
-    for (Behaviour* b : p_asleep_behaviours)
+    for (Behavior* b : p_asleep_behaviors)
         delete b;
-    for (Behaviour* b : p_behaviours)
+    for (Behavior* b : p_behaviors)
         delete b;
 }
 
 void Actor::preUpdate()
 {
-    if (!p_asleep_behaviours.empty())
+    if (!p_asleep_behaviors.empty())
     {
-        std::list<Behaviour*> to_init;
-        while (!p_asleep_behaviours.empty())
+        std::list<Behavior*> to_init;
+        while (!p_asleep_behaviors.empty())
         {
-            std::list<Behaviour*>::iterator b = p_asleep_behaviours.begin();
+            std::list<Behavior*>::iterator b = p_asleep_behaviors.begin();
             to_init.push_back(*b);
-            p_behaviours.push_back(*b);
-            p_asleep_behaviours.pop_front();
+            p_behaviors.push_back(*b);
+            p_asleep_behaviors.pop_front();
         }
-        for (Behaviour* b : to_init)
+        for (Behavior* b : to_init)
             b->init();
     }
 }
 
 void Actor::fixedUpdate()
 {
-    for (Behaviour* b : p_behaviours)
+    for (Behavior* b : p_behaviors)
         b->fixedUpdate();
 }
 
 void Actor::onDestroy()
 {
-    for (Behaviour* b : p_behaviours)
+    for (Behavior* b : p_behaviors)
         b->onDestroy();
 }
 
