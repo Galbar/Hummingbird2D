@@ -7,6 +7,7 @@
 #include "Game.hpp"
 #include "Kinematic.hpp"
 #include "KinematicWorld.hpp"
+#include "Log.hpp"
 #include "Plugin.hpp"
 #include "ResourceManager.hpp"
 #include "Time.hpp"
