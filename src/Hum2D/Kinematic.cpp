@@ -28,7 +28,7 @@ void Kinematic::onDestroy()
     p_kinematic_world->remove(this);
 }
 
-const char* Kinematic::behaviourName()
+const char* Kinematic::behaviorName()
 {
     return "h2d::Kinematic";
 }

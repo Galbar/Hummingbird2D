@@ -1,14 +1,14 @@
-#ifndef H2D_BEHAVIOUR_HPP
-#define H2D_BEHAVIOUR_HPP
+#ifndef H2D_BEHAVIOR_HPP
+#define H2D_BEHAVIOR_HPP
 
 namespace h2d
 {
 class Actor;
-class Behaviour
+class Behavior
 {
     friend Actor;
 public:
-    virtual ~Behaviour();
+    virtual ~Behavior();
     virtual void init();
     virtual void fixedUpdate();
     virtual void onDestroy();
@@ -16,7 +16,7 @@ public:
     const Actor& actor() const;
 
 protected:
-    Behaviour();
+    Behavior();
 
 private:
     Actor* p_actor;

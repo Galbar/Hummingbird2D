@@ -1,13 +1,13 @@
 #ifndef H2D_KINEMATIC_HPP
 #define H2D_KINEMATIC_HPP
-#include "Behaviour.hpp"
+#include "Behavior.hpp"
 #include "Transformation.hpp"
 
 namespace h2d
 {
 class Time;
 class KinematicWorld;
-class Kinematic : public Behaviour
+class Kinematic : public Behavior
 {
 public:
     Kinematic();
@@ -22,7 +22,7 @@ public:
     Transformation& acceleration();
     const Transformation& acceleration() const;
 
-    static const char* behaviourName();
+    static const char* behaviorName();
 
 private:
     KinematicWorld* p_kinematic_world;
