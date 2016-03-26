@@ -17,7 +17,6 @@ public:
     void preUpdate();
     void fixedUpdate();
     void onDestroy();
-    unsigned int id() const;
     Game& game();
     const Game& game() const;
     Transformation& transform();
