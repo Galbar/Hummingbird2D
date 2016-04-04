@@ -4,6 +4,7 @@
 using namespace h2d;
 
 Actor::Actor(Game& game):
+p_is_active(true),
 p_game(&game)
 {}
 
@@ -62,4 +63,23 @@ Transformation& Actor::transform()
 const Transformation& Actor::transform() const
 {
     return p_transform;
+}
+
+bool Actor::isActive()
+{
+    return p_is_active;
+}
+
+void Actor::activate()
+{
+    for (Behavior* b : p_behaviors)
+        b->onActivate();
+    p_is_active = true;
+}
+
+void Actor::deactivate()
+{
+    for (Behavior* b : p_behaviors)
+        b->onDeactivate();
+    p_is_active = false;
 }

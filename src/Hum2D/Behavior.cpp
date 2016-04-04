@@ -14,6 +14,12 @@ void Behavior::init()
 void Behavior::fixedUpdate()
 {}
 
+void Behavior::onActivate()
+{}
+
+void Behavior::onDeactivate()
+{}
+
 void Behavior::onDestroy()
 {}
 

@@ -22,6 +22,10 @@ public:
     Transformation& transform();
     const Transformation& transform() const;
 
+    bool isActive();
+    void activate();
+    void deactivate();
+
     template <typename B, class... Args>
     B* addBehavior(Args&& ... args)
     {
@@ -72,6 +76,7 @@ public:
 private:
     Actor(Game& game);
 
+    bool p_is_active;
     Game* p_game;
     Transformation p_transform;
     std::list<Behavior*> p_behaviors;

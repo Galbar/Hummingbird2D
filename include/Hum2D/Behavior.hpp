@@ -11,6 +11,8 @@ public:
     virtual ~Behavior();
     virtual void init();
     virtual void fixedUpdate();
+    virtual void onActivate();
+    virtual void onDeactivate();
     virtual void onDestroy();
     Actor& actor();
     const Actor& actor() const;

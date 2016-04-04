@@ -34,7 +34,10 @@ void Game::run()
         p_fixed_update_lag += p_delta_time.asNanoseconds();
 
         for (Actor* a : p_actor_pool)
-            a->preUpdate();
+        {
+            if (a->isActive())
+                a->preUpdate();
+        }
         for (Plugin* p : p_plugins)
             p->preUpdate();
 
@@ -43,7 +46,10 @@ void Game::run()
             for (Plugin* p : p_plugins)
                 p->preFixedUpdate();
             for (Actor* a : p_actor_pool)
-                a->fixedUpdate();
+            {
+                if (a->isActive())
+                    a->fixedUpdate();
+            }
             for (Plugin* p : p_plugins)
                 p->postFixedUpdate();
             p_fixed_update_lag -= c_nanoseconds_per_fixed_update;
