@@ -2,6 +2,7 @@
 #include "Plugin.hpp"
 #include "Actor.hpp"
 #include "Clock.hpp"
+#include "Log.hpp"
 
 using namespace h2d;
 
@@ -80,7 +81,14 @@ void Game::run()
 
 void Game::destroy(Actor* actor)
 {
-    p_actors_to_destroy.insert(actor);
+    if (p_actor_pool.find(actor) != p_actor_pool.end())
+    {
+        p_actors_to_destroy.insert(actor);
+    }
+    else
+    {
+        h2d_log("Intentando eliminar un actor inexistente");
+    }
 }
 
 void Game::destroy(Actor& actor)
