@@ -1,7 +1,7 @@
-#ifndef H2D_BEHAVIOR_HPP
-#define H2D_BEHAVIOR_HPP
+#ifndef HUM_BEHAVIOR_HPP
+#define HUM_BEHAVIOR_HPP
 
-namespace h2d
+namespace hum
 {
 class Actor;
 class Behavior

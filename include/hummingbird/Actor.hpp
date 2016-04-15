@@ -1,11 +1,11 @@
-#ifndef H2D_ACTOR_HPP
-#define H2D_ACTOR_HPP
+#ifndef HUM_ACTOR_HPP
+#define HUM_ACTOR_HPP
 #include <memory>
 #include <list>
 #include "Exceptions.hpp"
 #include "Transformation.hpp"
 
-namespace h2d
+namespace hum
 {
 class Game;
 class Behavior;

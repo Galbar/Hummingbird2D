@@ -1,7 +1,7 @@
-#ifndef H2B_PLUGIN_HPP
-#define H2B_PLUGIN_HPP
+#ifndef HUM_PLUGIN_HPP
+#define HUM_PLUGIN_HPP
 
-namespace h2d
+namespace hum
 {
 class Game;
 class Plugin

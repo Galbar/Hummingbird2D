@@ -1,5 +1,5 @@
 #include "Behavior.hpp"
-using namespace h2d;
+using namespace hum;
 
 Behavior::Behavior():
 p_actor(nullptr)

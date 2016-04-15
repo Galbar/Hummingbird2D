@@ -1,9 +1,9 @@
-#ifndef H2D_KINEMATIC_WORLD
-#define H2D_KINEMATIC_WORLD
+#ifndef HUM_KINEMATIC_WORLD
+#define HUM_KINEMATIC_WORLD
 #include <set>
 #include "Plugin.hpp"
 
-namespace h2d
+namespace hum
 {
 class Kinematic;
 class KinematicWorld : public Plugin

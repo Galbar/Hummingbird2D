@@ -1,10 +1,10 @@
-OUT    := lib/libhum2d
+OUT    := lib/libhum
 CC     := g++
 CFLAGS := -std=c++11 -Wall -fpic -O3
 ODIR   := obj
 LDIR   := lib
-SDIR   := src/Hum2D
-INC    := -Iinclude/Hum2D
+SDIR   := src/hummingbird
+INC    := -Iinclude/hummingbird
 
 SOURCES = $(shell find ./$(SDIR) -name '*.cpp')
 OBJS = $(patsubst $(SDIR)/%,$(ODIR)/%,$(SOURCES:./%.cpp=%.o))

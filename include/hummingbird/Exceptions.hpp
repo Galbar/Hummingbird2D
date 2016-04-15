@@ -1,9 +1,9 @@
-#ifndef H2D_EXCEPTIONS_HPP
-#define H2D_EXCEPTIONS_HPP
+#ifndef HUM_EXCEPTIONS_HPP
+#define HUM_EXCEPTIONS_HPP
 #include <exception>
 #include <string>
 
-namespace h2d
+namespace hum
 {
     namespace exception
     {

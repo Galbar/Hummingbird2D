@@ -1,9 +1,9 @@
-#ifndef H2D_KINEMATIC_HPP
-#define H2D_KINEMATIC_HPP
+#ifndef HUM_KINEMATIC_HPP
+#define HUM_KINEMATIC_HPP
 #include "Behavior.hpp"
 #include "Transformation.hpp"
 
-namespace h2d
+namespace hum
 {
 class Time;
 class KinematicWorld;

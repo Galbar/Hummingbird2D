@@ -1,5 +1,5 @@
-#ifndef H2D_HUMMINGBIRD2D_HPP
-#define H2D_HUMMINGBIRD2D_HPP
+#ifndef HUMMINGBIRD_HPP
+#define HUMMINGBIRD_HPP
 #include "Actor.hpp"
 #include "Behavior.hpp"
 #include "Clock.hpp"
@@ -12,4 +12,6 @@
 #include "ResourceManager.hpp"
 #include "Time.hpp"
 #include "Transformation.hpp"
+#include "Vector2.hpp"
+#include "Vector3.hpp"
 #endif

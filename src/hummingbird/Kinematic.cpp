@@ -3,15 +3,17 @@
 #include "Kinematic.hpp"
 #include "KinematicWorld.hpp"
 #include "Time.hpp"
-using namespace h2d;
+using namespace hum;
 
 Kinematic::Kinematic():
 p_kinematic_world(nullptr)
 {
-    p_velocity.scale_x = 0;
-    p_velocity.scale_y = 0;
-    p_acceleration.scale_x = 0;
-    p_acceleration.scale_y = 0;
+    p_velocity.scale.x = 0;
+    p_velocity.scale.y = 0;
+    p_velocity.scale.z = 0;
+    p_acceleration.scale.x = 0;
+    p_acceleration.scale.y = 0;
+    p_acceleration.scale.z = 0;
 }
 
 Kinematic::~Kinematic()
@@ -30,19 +32,16 @@ void Kinematic::onDestroy()
 
 const char* Kinematic::behaviorName()
 {
-    return "h2d::Kinematic";
+    return "hum::Kinematic";
 }
 
 Transformation Kinematic::simulate(const Time& delta_time) const
 {
     Transformation transform = actor().transform();
-    double ms = delta_time.asMilliseconds() / 1000.0;
-    transform.x += p_velocity.x * ms + p_acceleration.x * ms * ms / 2;
-    transform.y += p_velocity.y * ms + p_acceleration.y * ms * ms / 2;
-    transform.z += p_velocity.z * ms + p_acceleration.z * ms * ms / 2;
-    transform.rotation += p_velocity.rotation * ms + p_acceleration.rotation * ms * ms / 2;
-    transform.scale_x += p_velocity.scale_x * ms + p_velocity.scale_x * ms * ms / 2;
-    transform.scale_y += p_velocity.scale_y * ms + p_velocity.scale_y * ms * ms / 2;
+    float ms = delta_time.asMilliseconds() / 1000.f;
+    transform.position += p_velocity.position * ms + p_acceleration.position * ms * ms / 2.f;
+    transform.rotation += p_velocity.rotation * ms + p_acceleration.rotation * ms * ms / 2.f;
+    transform.scale += p_velocity.scale * ms + p_velocity.scale * ms * ms / 2.f;
     return transform;
 }
 

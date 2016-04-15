@@ -1,6 +1,6 @@
 #include "Plugin.hpp"
 
-using namespace h2d;
+using namespace hum;
 
 Plugin::Plugin()
 {}

@@ -4,11 +4,11 @@
 #include "Clock.hpp"
 #include "Log.hpp"
 
-using namespace h2d;
+using namespace hum;
 
 Game::Game(unsigned int fixed_tickrate):
 p_running(false),
-c_nanoseconds_per_fixed_update(1e9 / (double)fixed_tickrate),
+c_nanoseconds_per_fixed_update(1e9 / (float)fixed_tickrate),
 p_fixed_update_lag(0.0)
 {};
 
@@ -87,7 +87,7 @@ void Game::destroy(Actor* actor)
     }
     else
     {
-        h2d_log("Intentando eliminar un actor inexistente");
+        hum::log("Intentando eliminar un actor inexistente");
     }
 }
 

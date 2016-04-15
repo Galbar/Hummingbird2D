@@ -1,5 +1,5 @@
 #include "Exceptions.hpp"
-using namespace h2d::exception;
+using namespace hum::exception;
 
 BehaviorNotFound::BehaviorNotFound(const char* type_name)
 {

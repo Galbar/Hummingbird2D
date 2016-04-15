@@ -1,10 +1,10 @@
-#ifndef H2D_RESOURCE_MANAGER_HPP
-#define H2D_RESOURCE_MANAGER_HPP
+#ifndef HUM_RESOURCE_MANAGER_HPP
+#define HUM_RESOURCE_MANAGER_HPP
 #include <string>
 #include <list>
 #include <unordered_map>
 
-namespace h2d
+namespace hum
 {
 template <typename T, typename Key = std::string, typename Data = std::string>
 class ResourceManager

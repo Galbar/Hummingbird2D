@@ -1,6 +1,6 @@
 #include "Time.hpp"
 
-using namespace h2d;
+using namespace hum;
 
 Time::Time():
 m_nanoseconds(0)
@@ -13,19 +13,19 @@ m_nanoseconds(other.m_nanoseconds)
 Time::~Time()
 {}
 
-double Time::asSeconds() const
+float Time::asSeconds() const
 {
-    return (double)m_nanoseconds/1e9;
+    return (float)m_nanoseconds/1e9;
 }
 
-double Time::asMilliseconds() const
+float Time::asMilliseconds() const
 {
-    return (double)m_nanoseconds/1e6;
+    return (float)m_nanoseconds/1e6;
 }
 
-double Time::asMicroseconds() const
+float Time::asMicroseconds() const
 {
-    return (double)m_nanoseconds/1e3;
+    return (float)m_nanoseconds/1e3;
 }
 
 long Time::asNanoseconds() const
@@ -33,21 +33,21 @@ long Time::asNanoseconds() const
     return m_nanoseconds;
 }
 
-Time Time::seconds(double seconds)
+Time Time::seconds(float seconds)
 {
     Time t;
     t.m_nanoseconds = (long)(seconds * 1e9);
     return t;
 }
 
-Time Time::milliseconds(double milliseconds)
+Time Time::milliseconds(float milliseconds)
 {
     Time t;
     t.m_nanoseconds = milliseconds * 1e6;
     return t;
 }
 
-Time Time::microseconds(double microseconds)
+Time Time::microseconds(float microseconds)
 {
     Time t;
     t.m_nanoseconds = microseconds * 1e3;
@@ -73,7 +73,7 @@ Time& Time::operator-=(const Time& other)
     return *this;
 }
 
-Time& Time::operator*=(double other)
+Time& Time::operator*=(float other)
 {
     m_nanoseconds *= other;
     return *this;
@@ -85,7 +85,7 @@ Time& Time::operator*=(long other)
     return *this;
 }
 
-Time& Time::operator/=(double other)
+Time& Time::operator/=(float other)
 {
     m_nanoseconds /= other;
     return *this;
@@ -148,7 +148,7 @@ Time operator-(Time left, const Time& right)
     return left -= right;
 }
 
-Time operator*(Time left, double right)
+Time operator*(Time left, float right)
 {
     return left *= right;
 }
@@ -158,7 +158,7 @@ Time operator*(Time left, long right)
     return left *= right;
 }
 
-Time operator*(double left, Time right)
+Time operator*(float left, Time right)
 {
     return right *= left;
 }
@@ -168,7 +168,7 @@ Time operator*(long left, Time right)
     return right *= left;
 }
 
-Time operator/(Time left, double right)
+Time operator/(Time left, float right)
 {
     return left /= right;
 }
@@ -178,9 +178,9 @@ Time operator/(Time left, long right)
     return left /= right;
 }
 
-double operator/(const Time& left, const Time& right)
+float operator/(const Time& left, const Time& right)
 {
-    return (double)left.asNanoseconds() / (double)right.asNanoseconds();
+    return (float)left.asNanoseconds() / (float)right.asNanoseconds();
 }
 
 Time operator%(Time left, const Time& right)

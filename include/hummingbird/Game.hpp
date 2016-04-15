@@ -1,11 +1,11 @@
-#ifndef H2D_GAME_HPP
-#define H2D_GAME_HPP
+#ifndef HUM_GAME_HPP
+#define HUM_GAME_HPP
 #include <vector>
 #include <unordered_set>
 #include "Exceptions.hpp"
 #include "Time.hpp"
 
-namespace h2d
+namespace hum
 {
 class Plugin;
 class Actor;

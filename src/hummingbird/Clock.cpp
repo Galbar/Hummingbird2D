@@ -1,7 +1,7 @@
 #include "Clock.hpp"
 #include "Time.hpp"
 
-using namespace h2d;
+using namespace hum;
 
 Clock::Clock()
 {

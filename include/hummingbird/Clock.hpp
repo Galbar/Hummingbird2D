@@ -1,8 +1,8 @@
-#ifndef HB_CLOCK_H
-#define HB_CLOCK_H
+#ifndef HUM_CLOCK_H
+#define HUM_CLOCK_H
 #include <chrono>
 
-namespace h2d
+namespace hum
 {
 class Time;
 class Clock

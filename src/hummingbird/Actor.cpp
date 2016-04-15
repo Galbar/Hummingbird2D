@@ -1,7 +1,7 @@
 #include "Actor.hpp"
 #include "Behavior.hpp"
 
-using namespace h2d;
+using namespace hum;
 
 Actor::Actor(Game& game):
 p_is_active(true),
