@@ -9,6 +9,20 @@ public:
     Vector2(T x): x(x), y(x) {}
     Vector2(T x, T y): x(x), y(y) {}
 
+    T& operator[](unsigned int position)
+    {
+        position = position % 2;
+        if (position) return x;
+        return y;
+    }
+
+    const T& operator[](unsigned int position) const
+    {
+        position = position % 2;
+        if (position) return x;
+        return y;
+    }
+
     T x, y;
 };
 

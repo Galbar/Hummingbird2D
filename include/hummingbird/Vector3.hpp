@@ -11,11 +11,29 @@ public:
     Vector3(T x, T y, T z): x(x), y(y), z(z) {}
     Vector3(const Vector2<T>& xy, T z): x(xy.x), y(xy.y), z(z) {}
 
+    T& operator[](unsigned int position)
+    {
+        position = position % 3;
+        if (position == 0) return x;
+        if (position == 1) return y;
+        return z;
+    }
+
+    const T& operator[](unsigned int position) const
+    {
+        position = position % 3;
+        if (position == 0) return x;
+        if (position == 1) return y;
+        return z;
+    }
+
     T x, y, z;
 };
 typedef Vector3<float> Vector3f;
 typedef Vector3<int> Vector3i;
-}
+} /* hum */
+
+// Operators
 
 template<typename T>
 hum::Vector3<T> operator-(const hum::Vector3<T>& right)
