@@ -6,7 +6,7 @@ template <typename T>
 class Vector2
 {
 public:
-    Vector2(T x): x(x), y(x) {}
+    explicit Vector2(T x): x(x), y(x) {}
     Vector2(T x, T y): x(x), y(y) {}
 
     T& operator[](unsigned int position)

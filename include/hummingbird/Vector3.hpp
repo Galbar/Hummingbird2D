@@ -7,9 +7,9 @@ template <typename T>
 class Vector3
 {
 public:
-    Vector3(T x): x(x), y(x), z(x) {}
+    explicit Vector3(T x): x(x), y(x), z(x) {}
     Vector3(T x, T y, T z): x(x), y(y), z(z) {}
-    Vector3(const Vector2<T>& xy, T z): x(xy.x), y(xy.y), z(z) {}
+    explicit Vector3(const Vector2<T>& xy, T z): x(xy.x), y(xy.y), z(z) {}
 
     T& operator[](unsigned int position)
     {
@@ -62,13 +62,13 @@ hum::Vector3<T>& operator-=(hum::Vector3<T>& left, const hum::Vector3<T>& right)
 template<typename T>
 hum::Vector3<T> operator+(const hum::Vector3<T>& left, const hum::Vector3<T>& right)
 {
-    return hum::Vector3<T>(left.x + right.x, left.y + right.y, left.y + right.y);
+    return hum::Vector3<T>(left.x + right.x, left.y + right.y, left.z + right.z);
 }
 
 template<typename T>
 hum::Vector3<T> operator-(const hum::Vector3<T>& left, const hum::Vector3<T>& right)
 {
-    return hum::Vector3<T>(left.x - right.x, left.y - right.y, left.y - right.y);
+    return hum::Vector3<T>(left.x - right.x, left.y - right.y, left.z - right.z);
 }
 
 template<typename T>
@@ -92,19 +92,19 @@ hum::Vector3<T>& operator/=(hum::Vector3<T>& left, T right)
 template<typename T>
 hum::Vector3<T> operator*(const hum::Vector3<T>& left, T right)
 {
-    return hum::Vector3<T>(left.x * right, left.y * right, left.y * right);
+    return hum::Vector3<T>(left.x * right, left.y * right, left.z * right);
 }
 
 template<typename T>
 hum::Vector3<T> operator/(const hum::Vector3<T>& left, T right)
 {
-    return hum::Vector3<T>(left.x / right, left.y / right, left.y / right);
+    return hum::Vector3<T>(left.x / right, left.y / right, left.z / right);
 }
 
 template<typename T>
 hum::Vector3<T> operator*(T left, const hum::Vector3<T>& right)
 {
-    return hum::Vector3<T>(left * right.x, left * right.y, left + right.y);
+    return hum::Vector3<T>(left * right.x, left * right.y, left + right.z);
 }
 
 template<typename T>
