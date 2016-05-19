@@ -1,7 +1,9 @@
 #ifndef HUM_LOG_HPP
 #define HUM_LOG_HPP
 #include <string>
+#include <sstream>
 #include <iostream>
+#include "hum.hpp"
 
 namespace hum
 {
@@ -29,38 +31,103 @@ inline void assert_msg(bool condition, const std::string& message)
 #endif
 }
 
-inline void log_d(const char* message)
+namespace detail
 {
-#ifndef NDEBUG
-    std::cout << message << std::endl;
-#endif
+template <typename T>
+inline void log(std::ostream& out, const T& message)
+{
+    out << message;
 }
 
-inline void log_d(const std::string& message)
+inline void log(std::ostream& out, const char* message)
 {
-#ifndef NDEBUG
-    std::cout << message << std::endl;
-#endif
+    out << message;
 }
+
+inline void log(std::ostream& out, const std::string& message)
+{
+    out << message;
+}
+
+template <typename T>
+inline void log(std::ostream& out, const hum::Vector2<T>& vector)
+{
+    out << "hum::Vector2( " << vector.x << ", "
+                      << vector.y
+        << " )";
+}
+
+template <typename T>
+inline void log(std::ostream& out, const hum::Vector3<T>& vector)
+{
+    out << "hum::Vector3( " << vector.x << ", "
+                      << vector.y << ", "
+                      << vector.z
+        << " )";
+}
+
+inline void log(std::ostream& out, const hum::Transformation& transform)
+{
+    out << "hum::Transformation ( "
+        << "position=";
+    log(out, transform.position);
+    out << "; rotation=";
+    log(out, transform.rotation);
+    out << "; scale=";
+    log(out, transform.scale);
+    out << " )";
+}
+
+inline void log(std::ostream& out, const hum::Time& time)
+{
+    out << "hum::Time ( " << time.asMilliseconds() << " ms )";
+}
+
+inline void log(std::ostream& out, const hum::Clock& clock)
+{
+    out << "hum::Clock ( " << clock.getTime().asMilliseconds() << " ms )";
+}
+} /* detail */
 
 inline void log(const char* message)
 {
-    std::cout << message << std::endl;
+    detail::log(std::cout, message);
+    std::cout << std::endl;
 }
 
-inline void log(const std::string& message)
+template <typename T>
+inline void log(const T& message)
 {
-    std::cout << message << std::endl;
+    detail::log(std::cout, message);
+    std::cout << std::endl;
 }
 
 inline void log_e(const char* message)
 {
-    std::cerr << message << std::endl;
+    detail::log(std::cerr, message);
+    std::cerr << std::endl;
 }
 
-inline void log_e(const std::string& message)
+template <typename T>
+inline void log_e(const T& message)
 {
-    std::cerr << message << std::endl;
+    detail::log(std::cerr, message);
+    std::cerr << std::endl;
+}
+
+inline void log_d(const char* message)
+{
+#ifndef NDEBUG
+    log(message);
+#endif
+}
+
+template <typename T>
+inline void log_d(const T& message)
+{
+#ifndef NDEBUG
+    log(message);
+#endif
 }
 }
 #endif
