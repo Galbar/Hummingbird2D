@@ -7,6 +7,12 @@
 
 namespace hum
 {
+/*!
+  \brief Check a condition and if it fails, exit the program and print the
+  message.
+
+  This method does nothing if NDEBUG is defined.
+*/
 inline void assert_msg(bool condition, const char* message)
 {
 #ifndef NDEBUG
@@ -19,6 +25,12 @@ inline void assert_msg(bool condition, const char* message)
 #endif
 }
 
+/*!
+  \brief Check a condition and if it fails, exit the program and print the
+  message.
+
+  This method does nothing if NDEBUG is defined.
+*/
 inline void assert_msg(bool condition, const std::string& message)
 {
 #ifndef NDEBUG
@@ -40,11 +52,6 @@ inline void log(std::ostream& out, const T& message)
 }
 
 inline void log(std::ostream& out, const char* message)
-{
-    out << message;
-}
-
-inline void log(std::ostream& out, const std::string& message)
 {
     out << message;
 }
@@ -89,12 +96,26 @@ inline void log(std::ostream& out, const hum::Clock& clock)
 }
 } /* detail */
 
+/*!
+  \brief Print a message to the standard output.
+*/
 inline void log(const char* message)
 {
     detail::log(std::cout, message);
     std::cout << std::endl;
 }
 
+/*!
+  \brief Print a message to the standard output.
+
+  T can be any type that has the operator << overloaded.
+  It can also be any of the following classes:
+  \li hum::Vector2
+  \li hum::Vector3
+  \li hum::Transformation
+  \li hum::Time
+  \li hum::Clock
+*/
 template <typename T>
 inline void log(const T& message)
 {
@@ -102,12 +123,26 @@ inline void log(const T& message)
     std::cout << std::endl;
 }
 
+/*!
+  \brief Print a message to the error output.
+*/
 inline void log_e(const char* message)
 {
     detail::log(std::cerr, message);
     std::cerr << std::endl;
 }
 
+/*!
+  \brief Print a message to the error output.
+
+  T can be any type that has the operator << overloaded.
+  It can also be any of the following classes:
+  \li hum::Vector2
+  \li hum::Vector3
+  \li hum::Transformation
+  \li hum::Time
+  \li hum::Clock
+*/
 template <typename T>
 inline void log_e(const T& message)
 {
@@ -115,6 +150,11 @@ inline void log_e(const T& message)
     std::cerr << std::endl;
 }
 
+/*!
+  \brief Print a message to the standard output.
+
+  This method does nothing if NDEBUG is defined.
+*/
 inline void log_d(const char* message)
 {
 #ifndef NDEBUG
@@ -122,6 +162,19 @@ inline void log_d(const char* message)
 #endif
 }
 
+/*!
+  \brief Print a message to the standard output.
+
+  This method does nothing if NDEBUG is defined.
+
+  T can be any type that has the operator << overloaded.
+  It can also be any of the following classes:
+  \li hum::Vector2
+  \li hum::Vector3
+  \li hum::Transformation
+  \li hum::Time
+  \li hum::Clock
+*/
 template <typename T>
 inline void log_d(const T& message)
 {

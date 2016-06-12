@@ -72,14 +72,20 @@ bool Actor::isActive()
 
 void Actor::activate()
 {
-    for (Behavior* b : p_behaviors)
-        b->onActivate();
-    p_is_active = true;
+    if (!p_is_active)
+    {
+        for (Behavior* b : p_behaviors)
+            b->onActivate();
+        p_is_active = true;
+    }
 }
 
 void Actor::deactivate()
 {
-    for (Behavior* b : p_behaviors)
-        b->onDeactivate();
-    p_is_active = false;
+    if (p_is_active)
+    {
+        for (Behavior* b : p_behaviors)
+            b->onDeactivate();
+        p_is_active = false;
+    }
 }

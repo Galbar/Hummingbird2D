@@ -1,3 +1,10 @@
+/**
+ * \mainpage Hummingbird Framework
+ * \section intro_sec Introduction
+ *
+ * C++ game development framework.
+ */
+
 #ifndef HUMMINGBIRD_HPP
 #define HUMMINGBIRD_HPP
 #include "Actor.hpp"
@@ -14,4 +21,8 @@
 #include "Transformation.hpp"
 #include "Vector2.hpp"
 #include "Vector3.hpp"
+
+//! Namespace for the Hummingbird framework
+namespace hum
+{} /* hum */
 #endif
