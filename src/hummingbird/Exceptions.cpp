@@ -15,13 +15,3 @@ const char* PluginNotFound::what() const noexcept
 {
     return "Plugin not found in game.";
 }
-
-BehaviorNotRegistered::BehaviorNotRegistered(const char* name)
-{
-    p_name = name;
-}
-
-const char* BehaviorNotRegistered::what() const noexcept
-{
-    return p_name;
-}
