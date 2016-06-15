@@ -182,6 +182,7 @@ private:
     std::vector<Behavior*> p_behaviors;
     std::vector<Behavior*> p_asleep_behaviors;
 };
+
 /*!
   \class hum::Actor
   \brief Actor (also known as GameObject).
@@ -190,7 +191,7 @@ private:
   Game::makeActor(). This method will create a new Actor and return it. The Game owns
   the Actor and it controls its lifetime.
 
-  To __destroy__ a Actor you __must__ call Game::destroy(), not its destructor.
+  To __destroy__ an Actor you __must__ call Game::destroy(), not its destructor.
   The Actor then, will be marked to be destroyed and after the next update step
   it'll be deleted. Just before being deleted, the Actor will call its
   Behavior%s onDestroy() method.
@@ -208,6 +209,7 @@ private:
 
   Usage example. The Actor will be destroyed after 10 fixed updates:
   \code
+  // We define two Behaviors: A and B.
   class B : public hum::Behavior
   {
   public:
@@ -246,6 +248,7 @@ private:
   {
       hum::Game g;
       hum::Actor* a = g.makeActor();
+      // here we add the A and B to the Actor.
       A* t = a->addBehavior<A>(1);
       a->addBehavior<B>(10);
       g.run();

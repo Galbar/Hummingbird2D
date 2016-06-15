@@ -18,8 +18,12 @@ public:
       \endcode
     */
     Transformation();
-
-    Vector3f position, rotation, scale;
+    //! position vector.
+    Vector3f position;
+    //! rotation degrees around each axis.
+    Vector3f rotation;
+    //! scale for each axis.
+    Vector3f scale;
 
     /*!
       \brief Transform this Transformation by applying t.

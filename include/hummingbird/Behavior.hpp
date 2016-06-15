@@ -14,7 +14,7 @@ public:
     /*!
      * \brief Behavior initialization function.
      *
-     * This method is called only once, the first pre update of the behavior
+     * This method is called only once, the first preUpdate of the behavior
      * in the Actor.
      *
      * This method is useful for initializing values that require accessing
@@ -86,10 +86,14 @@ private:
   For creating a custom Behavior you may inherit from this class and override
   the methods you need to implement the wanted functionality.
 
+  Behaviors must also implement a <code>static const char* behaviorName()</code> method that,
+  as the name hints, returns the class name. This is used for error reporting.
+
   Usage example:
   \code
   class PrintTransform : public hum::Behavior
   {
+  public:
       void init() override
       {
           hum::log("Behavior initialized");
@@ -103,6 +107,11 @@ private:
       void onDestroy() override
       {
           hum::log("Actor destroyed");
+      }
+
+      static const char* behaviorName()
+      {
+          return "PrintTransform";
       }
   }
   \endcode
