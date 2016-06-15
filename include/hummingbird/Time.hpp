@@ -2,11 +2,6 @@
 #define HUM_TIME_HPP
 namespace hum
 {
-/*!
-  \class Time
-  \brief Class for representing intervals of time.
-  This class has nanoseconds precision.
-*/
 class Time
 {
 public:
@@ -80,6 +75,12 @@ public:
 private:
     long m_nanoseconds;
 };
+
+/*!
+  \class hum::Time
+  \brief Class for representing intervals of time.
+  This class has nanoseconds precision.
+*/
 }
 
 hum::Time operator-(hum::Time right);

@@ -5,10 +5,6 @@
 namespace hum
 {
 class Time;
-/*!
-  \class Clock
-  \brief Class for measuring intervals of time.
-*/
 class Clock
 {
 public:
@@ -52,5 +48,10 @@ public:
 private:
     std::chrono::high_resolution_clock::time_point m_time_point;
 };
+
+/*!
+  \class hum::Clock
+  \brief Class for measuring intervals of time.
+*/
 }
 #endif

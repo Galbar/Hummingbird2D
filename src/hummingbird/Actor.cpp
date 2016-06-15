@@ -20,14 +20,13 @@ void Actor::preUpdate()
 {
     if (!p_asleep_behaviors.empty())
     {
-        std::list<Behavior*> to_init;
-        while (!p_asleep_behaviors.empty())
+        std::vector<Behavior*> to_init;
+        for (Behavior* b: p_asleep_behaviors)
         {
-            std::list<Behavior*>::iterator b = p_asleep_behaviors.begin();
-            to_init.push_back(*b);
-            p_behaviors.push_back(*b);
-            p_asleep_behaviors.pop_front();
+            to_init.push_back(b);
+            p_behaviors.push_back(b);
         }
+        p_asleep_behaviors.clear();
         for (Behavior* b : to_init)
             b->init();
     }

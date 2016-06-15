@@ -86,6 +86,8 @@ public:
 
     /*!
      \brief Add a new Plugin to the Game.
+      \tparam P The Plugin's type.
+      \tparam Args The parameters for P's constructor.
 
      \return A `P` pointer to the new Plugin instance.
      */
@@ -100,6 +102,7 @@ public:
 
     /*!
      \brief Get and exisitng Plugin from the Game.
+      \tparam P The Plugin's type.
 
      If the Game doesn't contain a Plugin of the given type it will throw a
      exception::PluginNotFound exception.
@@ -118,6 +121,7 @@ public:
 
     /*!
      \brief Get and exisitng Plugin from the Game.
+      \tparam P The Plugin's type.
 
      If the Game doesn't contain a Plugin of the given type it will throw a
      exception::PluginNotFound exception.
