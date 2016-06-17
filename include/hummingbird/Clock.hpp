@@ -10,7 +10,7 @@ class Clock
 public:
     /*!
       \brief Class constructor.
-      Initializes a new instance of Clock wich starts measuring
+      Initializes a new instance of Clock which starts measuring
       the time as it is created.
     */
     Clock();

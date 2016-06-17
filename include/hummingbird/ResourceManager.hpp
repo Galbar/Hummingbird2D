@@ -93,7 +93,7 @@ protected:
   \class hum::ResourceManager
   \brief Class that implements the generic functionality of a resource manager.
 
-  This template class has three type parameters, two of wich are optional. The
+  This template class has three type parameters, two of which are optional. The
   first is the type of the data to manage. The second one is the type of the
   key to identify the managed data (<code>std::string</code> by default). The third is the data needed to load the
   resource (<code>std::string</code> by default).
