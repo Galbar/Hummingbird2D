@@ -30,7 +30,7 @@ public:
       \brief Run the Game
 
       Starts running the game loop. See the Game class description for the flow chart
-      of the main loops steps.
+      of the main loop's steps.
      */
     void run();
 

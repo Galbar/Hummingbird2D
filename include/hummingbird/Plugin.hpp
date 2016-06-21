@@ -70,7 +70,7 @@ private:
   For creating a custom Plugin you may inherit from this class and override
   the methods you need to implement the wanted functionality.
 
-  For more information on the lifecycle of a Game see that page.
+  For more information on the lifecycle of a Game see the Game class description.
 
   Usage example:
   \code
@@ -81,19 +81,19 @@ private:
     }
 
     void preUpdate() override {
-      hum::log(game().deltaTime());
+      hum::log("delta time: ", game().deltaTime());
     }
 
     void preFixedUpdate() override {
-      hum::log(game().fixedUpdateLag());
+      hum::log("fixed update lag: ", game().fixedUpdateLag());
     }
 
     void postFixedUpdate() override {
-      hum::log(game().fixedUpdateLag());
+      hum::log("fixed update lag: ", game().fixedUpdateLag());
     }
 
     void postUpdate() override {
-      hum::log(game().deltaTime());
+      hum::log("delta time: ", game().deltaTime());
     }
 
     void gameEnd() override {

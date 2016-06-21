@@ -35,7 +35,7 @@ public:
     /*!
       \brief Called just before destroying the Actor.
 
-      It call its Behavior%s' onDestroy() method.
+      It calls its Behavior%s' onDestroy() method.
     */
     void onDestroy();
 
@@ -237,7 +237,7 @@ private:
           {
               actor().game().destroy(actor());
           }
-          hum::log(current);
+          hum::log("Count: ", current);
       }
 
   private:

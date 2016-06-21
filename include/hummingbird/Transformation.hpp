@@ -38,7 +38,7 @@ public:
       result.scale.z = t1.scale.z * t2.scale.z;
       \endcode
 
-      \return The accumulated transformation of this and t.
+      \return The accumulated transformation of `this` and `t`.
     */
     Transformation transform(const Transformation& t) const;
 };

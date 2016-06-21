@@ -23,6 +23,14 @@ public:
     explicit Vector3(const Vector2<T>& xy, T z): x(xy.x), y(xy.y), z(z) {}
 
     /*!
+      \brief Cast constructor from other Vector3 of different type.
+
+      It will work always that there is a defined cast from U to T.
+    */
+    template<typename U>
+    Vector3(const Vector3<U>& v): x(v.x), y(v.y), z(v.z) {}
+
+    /*!
       \brief Indexed accessor for the components of the vector.
 
       Gets the corresponding component as if the vector was an array like
@@ -160,7 +168,7 @@ hum::Vector3<T> operator-(const hum::Vector3<T>& left, const hum::Vector3<T>& ri
 
    \brief Overload of binary multiply-equal operator.
 
-   \param left Left factor and reciever of the result.
+   \param left Left factor and receiver of the result.
    \param right Right factor.
 
    \return A reference to left after having multiplied both factors,
@@ -278,7 +286,7 @@ bool operator!=(const hum::Vector3<T>& left, const hum::Vector3<T>& right)
 
 /*!
   \class hum::Vector3
-  \brief Class represeting a 3D vector.
+  \brief Class representing a 3D vector.
 
   hum::Vector3 is a simple class that defines a mathematical
   vector with two coordinates (x, y and z). It can be used to

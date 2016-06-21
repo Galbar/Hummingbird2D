@@ -79,7 +79,7 @@ protected:
     /*!
      * \brief Function to implement for loading the new instance of the resource type.
      *
-     * It recieves a Data (by default <code>std::string</code>) with information
+     * It receives a Data (by default <code>std::string</code>) with information
      * to load the new resource instance.
      *
      * If there is an error when loading the resource it must return <code>nullptr</code>.

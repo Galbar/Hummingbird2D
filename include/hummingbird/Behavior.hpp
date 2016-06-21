@@ -101,7 +101,7 @@ private:
 
       void fixedUpdate() override
       {
-          hum::log(actor().transform());
+          hum::log("Actor transformation: ", actor().transform());
       }
 
       void onDestroy() override

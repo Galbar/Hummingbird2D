@@ -15,6 +15,13 @@ public:
       \brief Class constructor by specifying each component's value.
     */
     Vector2(T x, T y): x(x), y(y) {}
+/*!
+      \brief Cast constructor from other Vector2 of different type.
+
+      It will work always that there is a defined cast from U to T.
+    */
+    template<typename U>
+    Vector2(const Vector2<U>& v): x(v.x), y(v.y) {}
 
     /*!
       \brief Indexed accessor for the components of the vector.
@@ -150,7 +157,7 @@ hum::Vector2<T> operator-(const hum::Vector2<T>& left, const hum::Vector2<T>& ri
 
    \brief Overload of binary multiply-equal operator.
 
-   \param left Left factor and reciever of the result.
+   \param left Left factor and receiver of the result.
    \param right Right factor.
 
    \return A reference to left after having multiplied both factors,
@@ -266,7 +273,7 @@ bool operator!=(const hum::Vector2<T>& left, const hum::Vector2<T>& right)
 
 /*!
   \class hum::Vector2
-  \brief Class represeting a 2D vector.
+  \brief Class representing a 2D vector.
 
   hum::Vector2 is a simple class that defines a mathematical
   vector with two coordinates (x and y). It can be used to
@@ -278,7 +285,7 @@ bool operator!=(const hum::Vector2<T>& left, const hum::Vector2<T>& right)
   and comparisons (==, !=), for example int or float.
 
   You generally don't have to care about the templated form (hum::Vector2<T>),
-  the most common specializations have special typedefs:
+  the most common specializations have special `typedef`s:
   \li hum::Vector2<float> is hum::Vector2f
   \li hum::Vector2<int> is hum::Vector2i
 
