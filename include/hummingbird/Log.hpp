@@ -83,7 +83,7 @@ inline void assert_msg(bool condition, const TT&... tt)
 #ifndef NDEBUG
     if (!condition)
     {
-        detail::log(std::cerr, "Assertion failed in ", __FILE__, " line ", __LINE__, ": ", tt...);
+        detail::log(std::cerr, "Assertion failed: ", tt...);
         std::cerr << std::endl;
         std::exit(EXIT_FAILURE);
     }
@@ -106,10 +106,10 @@ inline void assert_msg(bool condition, const TT&... tt)
   hum::log("Player position: ", actor().transform().position);
   \endcode
 */
-template <typename T, typename... TT>
-inline void log(const T& message, const TT&... tt)
+template <typename... TT>
+inline void log(const TT&... tt)
 {
-    detail::log(std::cout, message, tt...);
+    detail::log(std::cout, tt...);
     std::cout << std::endl;
 }
 
@@ -129,10 +129,10 @@ inline void log(const T& message, const TT&... tt)
   hum::log_e("Player position: ", actor().transform().position);
   \endcode
 */
-template <typename T, typename... TT>
-inline void log_e(const T& message, const TT&... tt)
+template <typename... TT>
+inline void log_e(const TT&... tt)
 {
-    detail::log(std::cerr, message, tt...);
+    detail::log(std::cerr, tt...);
     std::cerr << std::endl;
 }
 
@@ -154,11 +154,11 @@ inline void log_e(const T& message, const TT&... tt)
   hum::log_d("Player position: ", actor().transform().position);
   \endcode
 */
-template <typename T, typename... TT>
-inline void log_d(const T& message, const TT&... tt)
+template <typename... TT>
+inline void log_d(const TT&... tt)
 {
 #ifndef NDEBUG
-    log(message, tt...);
+    log(tt...);
 #endif
 }
 }
