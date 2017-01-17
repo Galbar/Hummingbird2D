@@ -9,14 +9,12 @@ using namespace hum;
 Game::Game(unsigned int fixed_tickrate):
 p_running(false),
 c_nanoseconds_per_fixed_update(1e9 / (float)fixed_tickrate),
-p_fixed_update_lag(0.0)
+p_fixed_update_lag(0.0),
+p_actor_pool(this)
 {};
 
 Game::~Game()
 {
-    for (Actor* a : p_actor_pool)
-        delete a;
-
     for (Plugin* p : p_plugins)
         delete p;
 };
@@ -34,10 +32,11 @@ void Game::run()
         p_delta_time = clk.reset();
         p_fixed_update_lag += p_delta_time.asNanoseconds();
 
-        for (Actor* a : p_actor_pool)
+        for (auto it : p_actor_pool)
         {
-            if (a->isActive())
-                a->preUpdate();
+            Actor* actor = it.second;
+            if (actor->isActive())
+                actor->preUpdate();
         }
         for (Plugin* p : p_plugins)
             p->preUpdate();
@@ -46,10 +45,11 @@ void Game::run()
         {
             for (Plugin* p : p_plugins)
                 p->preFixedUpdate();
-            for (Actor* a : p_actor_pool)
+            for (auto it : p_actor_pool)
             {
-                if (a->isActive())
-                    a->fixedUpdate();
+                Actor* actor = it.second;
+                if (actor->isActive())
+                    actor->fixedUpdate();
             }
             for (Plugin* p : p_plugins)
                 p->postFixedUpdate();
@@ -59,51 +59,21 @@ void Game::run()
         for (Plugin* p : p_plugins)
             p->postUpdate();
 
-        for (Actor* a : p_actors_to_destroy)
-        {
-            a->onDestroy();
-            p_actor_pool.erase(a);
-            delete a;
-        }
-        p_actors_to_destroy.clear();
+        p_actor_pool.postUpdate();
     }
 
     for (Plugin* p : p_plugins)
         p->gameEnd();
 
-    for (Actor* a : p_actor_pool)
-    {
-        a->onDestroy();
-        delete a;
-    }
     p_actor_pool.clear();
 }
 
-void Game::destroy(Actor* actor)
+const ActorPool& Game::actors() const
 {
-    if (p_actor_pool.find(actor) != p_actor_pool.end())
-    {
-        p_actors_to_destroy.insert(actor);
-    }
-    else
-    {
-        hum::log("Intentando eliminar un actor inexistente");
-    }
+    return p_actor_pool;
 }
 
-void Game::destroy(Actor& actor)
-{
-    destroy(&actor);
-}
-
-Actor* Game::makeActor()
-{
-    Actor* a = new Actor(*this);
-    p_actor_pool.insert(a);
-    return a;
-}
-
-const std::unordered_set<Actor*>& Game::actors() const
+ActorPool& Game::actors()
 {
     return p_actor_pool;
 }

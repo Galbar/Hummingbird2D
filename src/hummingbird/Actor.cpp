@@ -1,10 +1,12 @@
 #include "Actor.hpp"
 #include "Behavior.hpp"
+#include "Game.hpp"
 
 using namespace hum;
 
-Actor::Actor(Game& game):
+Actor::Actor(Game& game, unsigned int id):
 p_is_active(true),
+p_id(id),
 p_game(&game)
 {}
 
@@ -87,4 +89,14 @@ void Actor::deactivate()
             b->onDeactivate();
         p_is_active = false;
     }
+}
+
+void Actor::destroy()
+{
+    p_game->actors().destroy(this);
+}
+
+unsigned int Actor::id() const
+{
+    return p_id;
 }

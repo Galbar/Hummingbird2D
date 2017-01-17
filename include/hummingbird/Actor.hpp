@@ -8,10 +8,11 @@
 namespace hum
 {
 class Game;
+class ActorPool;
 class Behavior;
 class Actor
 {
-    friend Game;
+    friend ActorPool;
 public:
     //! Class destructor
     ~Actor();
@@ -81,6 +82,12 @@ public:
 
     //! Set the Actor inactive.
     void deactivate();
+
+    //! Destroy the Actor.
+    void destroy();
+
+    //! Get the Actor%'s id
+    unsigned int id() const;
 
     /*!
       \brief Add a new Behavior to the Actor.
@@ -174,9 +181,10 @@ public:
     }
 
 private:
-    Actor(Game& game);
+    Actor(Game& game, unsigned int id);
 
     bool p_is_active;
+    unsigned int p_id;
     Game* p_game;
     Transformation p_transform;
     std::vector<Behavior*> p_behaviors;

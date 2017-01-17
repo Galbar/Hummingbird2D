@@ -4,6 +4,7 @@
 #include <unordered_set>
 #include "Exceptions.hpp"
 #include "Time.hpp"
+#include "ActorPool.hpp"
 
 namespace hum
 {
@@ -80,9 +81,16 @@ public:
     /*!
      \brief Get the Actor object pool.
 
-     \return A set of pointers to all Actor%s.
+     \return An ActorPool instance
      */
-    const std::unordered_set<Actor*>& actors() const;
+    const ActorPool& actors() const;
+
+    /*!
+     \brief Get the Actor object pool.
+
+     \return An ActorPool instance
+     */
+    ActorPool& actors();
 
     /*!
      \brief Add a new Plugin to the Game.
@@ -144,8 +152,7 @@ private:
     long p_fixed_update_lag;
     Time p_delta_time;
 
-    std::unordered_set<Actor*> p_actor_pool;
-    std::unordered_set<Actor*> p_actors_to_destroy;
+    ActorPool p_actor_pool;
     std::vector<Plugin*> p_plugins;
 };
 
