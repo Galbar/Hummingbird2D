@@ -62,23 +62,6 @@ public:
     void setRunning(bool running);
 
     /*!
-     \brief Create a new Actor instance.
-
-     \return The new Actor instance's pointer.
-     */
-    Actor* makeActor();
-
-    /*!
-     \brief Mark an Actor to be destroyed.
-     */
-    void destroy(Actor* actor);
-
-    /*!
-     \brief Mark an Actor to be destroyed.
-     */
-    void destroy(Actor& actor);
-
-    /*!
      \brief Get the Actor object pool.
 
      \return An ActorPool instance
