@@ -55,6 +55,11 @@ private:
     std::unordered_map<std::string, std::list<Actor*>> p_actor_by_tag;
     std::unordered_set<Actor*> p_actors_to_destroy;
 };
+
+/*!
+  \class hum::ActorPool
+  \brief Handles a pool of actors.
+*/
 } /* hum */
 
 #endif /* ACTORPOOL_H */
