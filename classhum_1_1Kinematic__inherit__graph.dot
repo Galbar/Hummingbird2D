@@ -1,0 +1,8 @@
+digraph "hum::Kinematic"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="hum::Kinematic",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node2 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="hum::Behavior",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classhum_1_1Behavior.html",tooltip="Class from which inherit to implement and give an Actor behavior. "];
+}
