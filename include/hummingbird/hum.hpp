@@ -3,6 +3,10 @@
  * \section intro_sec Introduction
  *
  * C++ game development framework.
+ *
+ * I suggest you start checking the hum::Game class.
+ *
+ * For an example game check https://github.com/Galbar/space-shooter/
  */
 
 #ifndef HUMMINGBIRD_HPP
